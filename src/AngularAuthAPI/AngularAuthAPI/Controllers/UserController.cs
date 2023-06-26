@@ -43,6 +43,20 @@ namespace AngularAuthAPI.Controllers
                 return BadRequest();
             }
 
+            // Check Username
+            if (await CheckUserNameExistAsync(userObj.UserName))
+            {
+                return BadRequest(new { Message = "Username already Exists!" });
+            }
+
+            // Check Email
+            if (await CheckEmailExistAsync(userObj.Email))
+            {
+                return BadRequest(new { Message = "Email already Exists!" });
+            }
+
+            // Check Password Strength.
+
             userObj.Password = PasswordHasher.HashPassword(userObj.Password);
             userObj.Role = "User";
             userObj.Token = "";
@@ -52,5 +66,11 @@ namespace AngularAuthAPI.Controllers
 
             return Ok(new { Message = "User Registered!" });
         }
+
+        private async Task<bool> CheckUserNameExistAsync(string username)
+            => await _context.Users.AnyAsync(x => x.UserName == username);
+
+        private async Task<bool> CheckEmailExistAsync(string email)
+            => await _context.Users.AnyAsync(x => x.Email == email);
     }
 }

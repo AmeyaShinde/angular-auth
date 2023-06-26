@@ -48,7 +48,6 @@ export class SignupComponent implements OnInit {
                 }
             });
         } else {
-            console.log("Form is not valid.");
             // throw the error using toaster and with the required fields
             ValidateForm.validateAllFormFields(this.signUpForm);
             alert("Your form is invalid");
