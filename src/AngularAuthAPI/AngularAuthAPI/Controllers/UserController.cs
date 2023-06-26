@@ -1,9 +1,10 @@
 ﻿using AngularAuthAPI.Context;
 using AngularAuthAPI.Helpers;
 using AngularAuthAPI.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AngularAuthAPI.Controllers
 {
@@ -56,6 +57,11 @@ namespace AngularAuthAPI.Controllers
             }
 
             // Check Password Strength.
+            var pass = CheckPasswordStrength(userObj.Password);
+            if (!string.IsNullOrEmpty(pass))
+            {
+                return BadRequest(new { Message = pass.ToString() });
+            }
 
             userObj.Password = PasswordHasher.HashPassword(userObj.Password);
             userObj.Role = "User";
@@ -72,5 +78,24 @@ namespace AngularAuthAPI.Controllers
 
         private async Task<bool> CheckEmailExistAsync(string email)
             => await _context.Users.AnyAsync(x => x.Email == email);
+
+        private string CheckPasswordStrength(string password)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (password.Length < 8)
+            {
+                sb.Append("Minimun password length should be 8 " + Environment.NewLine);
+            }
+            if (!(Regex.IsMatch(password, "[a-z]") && Regex.IsMatch(password, "[A-Z]")
+                && Regex.IsMatch(password, "[0-9]")))
+            {
+                sb.Append("Password should be Alphanumeric" + Environment.NewLine);
+            }
+            if (!Regex.IsMatch(password, "[<,>,@,!,#,$,%,^,&,*,(,),_,+,\\[,\\],{,},/,:,;,|,',\\,.,/,~,`,-,=]"))
+            {
+                sb.Append("Password should contain special characters" + Environment.NewLine);
+            }
+            return sb.ToString();
+        }
     }
 }
