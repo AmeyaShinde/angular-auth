@@ -10,16 +10,16 @@
                         <form [formGroup]="loginForm">
                             <div class="form-group pt-3">
                                 <div class="input-field" [class.error]="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')">
-                                    <span class="fa-solid fa-user p-2"></span>
+                                    <span class="fa fa-user p-2"></span>
                                     <input formControlName="username" type="text" placeholder="Username">
                                 </div>
                             </div>
                             <small *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')" class="text-danger">*Username is required</small>
                             <div class="form-group pt-3">
                                 <div class="input-field" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')">
-                                    <span class="fa-solid fa-lock p-2"></span>
+                                    <span class="fa fa-lock p-2"></span>
                                     <input formControlName="password" [type]="type" placeholder="Password">
-                                    <span (click)="hideshowPass()" class="fa-solid {{ eyeIcon }}"></span>
+                                    <span (click)="hideshowPass()" class="fa {{ eyeIcon }}"></span>
                                 </div>
                             </div>
                             <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')" class="text-danger">*Password is required</small>
