@@ -1,5 +1,11 @@
 <button class="btn btn-danger" (click)="logout()">Log Out</button>
-<h1>Hello Dashboard</h1>
+
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">Navbar</a>
+    <div>
+        <span>Hello Ameya</span>
+    </div>
+</nav>
 
 <ul *ngFor="let user of users">
     <li>{{ user.firstName }} {{ user.lastName }}</li>
