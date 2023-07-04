@@ -1,12 +1,8 @@
-<button class="btn btn-danger" (click)="logout()">Log Out</button>
-
-<nav class="navbar navbar-light bg-light justify-content-between">
-    <a class="navbar-brand">Navbar</a>
-    <div>
-        <span>Hello Ameya</span>
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand">Angular AUTH</a>
+        <div>
+            <h4>Hello {{ fullName }}</h4>
+        </div>
     </div>
 </nav>
-
-<ul *ngFor="let user of users">
-    <li>{{ user.firstName }} {{ user.lastName }}</li>
-</ul>
