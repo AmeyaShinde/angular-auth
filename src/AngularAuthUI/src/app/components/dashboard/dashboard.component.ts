@@ -12,6 +12,7 @@ export class DashboardComponent {
 
     public users: any = [];
     public fullName: string = "";
+    public role: string = "";
 
     constructor(
         private auth: AuthService,
@@ -25,8 +26,13 @@ export class DashboardComponent {
         });
 
         this.userStore.getFullNameFromStore().subscribe(val => {
-            let fullNameFromToken = this.auth.getFullNameFromToken();
+            const fullNameFromToken = this.auth.getFullNameFromToken();
             this.fullName = val || fullNameFromToken;
+        });
+
+        this.userStore.getRoleFromStore().subscribe(val => {
+            const roleFromToken = this.auth.getRoleFromToken();
+            this.role = val || roleFromToken;
         });
     }
 
