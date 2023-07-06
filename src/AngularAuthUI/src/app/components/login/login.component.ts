@@ -47,7 +47,8 @@ export class LoginComponent implements OnInit {
                     console.log(res);
                     this.toast.success({ detail: "SUCCESS", summary: res.message, duration: 5000 });
                     this.loginForm.reset();
-                    this.auth.storeToken(res.token);
+                    this.auth.storeToken(res.tokenApiDto.accessToken);
+                    this.auth.storeRefreshToken(res.tokenApiDto.refreshToken);
                     const tokenPayload = this.auth.decodedToken();
                     this.userStore.setFullNameForStore(tokenPayload.unique_name);
                     this.userStore.setRoleForStore(tokenPayload.role);
